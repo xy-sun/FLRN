@@ -1,0 +1,21 @@
+version: "2.3"
+services:
+    cloud:
+        image: cloud:latest
+        container_name: sur_cloud
+        environment:
+            CUDA_VISIBLE_DEVICES: 1
+            PYTHONUNBUFFERED: 1
+            ECCI_LOCAL_BROKER_IP: 192.168.0.26
+            ECCI_LOCAL_BROKER_PORT: 1986
+            ECCI_LOCAL_BROKER_ID: 321
+            ECCI_APP_ID: app
+            ECCI_APP_TYPE: controller
+            ECCI_SERVICE_NAME: cloud
+            ECCI_PUB_TARGETS: "{'client1':'321','client2':'321','client3':'321','client4':'321','client5':'321','new_client':'321'}"
+            ECCI_LOCAL_CONTAINERS: "['cloud']"
+        runtime: nvidia
+        volumes:
+            - ./:/cloud
+        command: python cloud.py
+

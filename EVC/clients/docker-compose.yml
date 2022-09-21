@@ -1,0 +1,132 @@
+version: "2.3"
+services:
+    new_client:
+        image: new_client:latest
+        container_name: new_client
+        environment:
+            CUDA_VISIBLE_DEVICES: 3
+            PYTHONUNBUFFERED: 1
+            ECCI_LOCAL_BROKER_IP: 192.168.0.26
+            ECCI_LOCAL_BROKER_PORT: 1986
+            ECCI_LOCAL_BROKER_ID: 321
+            ECCI_APP_ID: app
+            ECCI_APP_TYPE: component
+            ECCI_SERVICE_NAME: new_client
+            ECCI_PUB_TARGETS: "{'cloud':'321'}"
+            ECCI_LOCAL_CONTAINERS: "['client1','client2','client3','client4','client5','new_client']"
+            ECCI_APP_CONTROLLER_CONTAINER: "{'cloud':'321'}"
+        runtime: nvidia
+        volumes:
+            - ./:/new_client
+        command: python ./new_client/new_client.py
+
+    client1:
+        image: client1:latest
+        container_name: client1
+        environment:
+            CUDA_VISIBLE_DEVICES: 3
+            PYTHONUNBUFFERED: 1
+            ECCI_LOCAL_BROKER_IP: 192.168.0.26
+            ECCI_LOCAL_BROKER_PORT: 1986
+            ECCI_LOCAL_BROKER_ID: 321
+            ECCI_APP_ID: app
+            ECCI_APP_TYPE: component
+            ECCI_SERVICE_NAME: client1
+            ECCI_PUB_TARGETS: "{'cloud':'321'}"
+            ECCI_LOCAL_CONTAINERS: "['client1','client2','client3','client4','client5','new_client']"
+            ECCI_APP_CONTROLLER_CONTAINER: "{'cloud':'321'}"
+        runtime: nvidia
+        depends_on:
+            - new_client
+        volumes:
+             - ./:/client1
+        command: python ./client1/client.py
+    client2:
+        image: client2:latest
+        container_name: client2
+        environment:
+            CUDA_VISIBLE_DEVICES: 3
+            PYTHONUNBUFFERED: 1
+            ECCI_LOCAL_BROKER_IP: 192.168.0.26
+            ECCI_LOCAL_BROKER_PORT: 1986
+            ECCI_LOCAL_BROKER_ID: 321
+            ECCI_APP_ID: app
+            ECCI_APP_TYPE: component
+            ECCI_SERVICE_NAME: client2
+            ECCI_PUB_TARGETS: "{'cloud':'321'}"
+            ECCI_LOCAL_CONTAINERS: "['client1','client2','client3','client4','client5','new_client']"
+            ECCI_APP_CONTROLLER_CONTAINER: "{'cloud':'321'}"
+        runtime: nvidia
+        depends_on:
+            - client1
+        volumes:
+             - ./:/client2
+        command: python ./client2/client.py
+
+    client3:
+        image: client3:latest
+        container_name: client3
+        environment:
+            CUDA_VISIBLE_DEVICES: 2
+            PYTHONUNBUFFERED: 1
+            ECCI_LOCAL_BROKER_IP: 192.168.0.26
+            ECCI_LOCAL_BROKER_PORT: 1986
+            ECCI_LOCAL_BROKER_ID: 321
+            ECCI_APP_ID: app
+            ECCI_APP_TYPE: component
+            ECCI_SERVICE_NAME: client3
+            ECCI_PUB_TARGETS: "{'cloud':'321'}"
+            ECCI_LOCAL_CONTAINERS: "['client1','client2','client3','client4','client5','new_client']"
+            ECCI_APP_CONTROLLER_CONTAINER: "{'cloud':'321'}"
+        runtime: nvidia
+        depends_on:
+            - client2
+        volumes:
+            - ./:/work3
+        command: python ./client3/client.py
+
+    client4:
+        image: client4:latest
+        container_name: client4
+        environment:
+            CUDA_VISIBLE_DEVICES: 5
+            PYTHONUNBUFFERED: 1
+            ECCI_LOCAL_BROKER_IP: 192.168.0.26
+            ECCI_LOCAL_BROKER_PORT: 1986
+            ECCI_LOCAL_BROKER_ID: 321
+            ECCI_APP_ID: app
+            ECCI_APP_TYPE: component
+            ECCI_SERVICE_NAME: client4
+            ECCI_PUB_TARGETS: "{'cloud':'321'}"
+            ECCI_LOCAL_CONTAINERS: "['client1','client2','client3','client4','client5','new_client']"
+            ECCI_APP_CONTROLLER_CONTAINER: "{'cloud':'321'}"
+        runtime: nvidia
+        depends_on:
+            - client3
+        volumes:
+            - ./:/work4
+        command: python ./client4/client.py
+
+    client5:
+        image: client5:latest
+        container_name: client5
+        environment:
+            CUDA_VISIBLE_DEVICES: 1
+            PYTHONUNBUFFERED: 1
+            ECCI_LOCAL_BROKER_IP: 192.168.0.26
+            ECCI_LOCAL_BROKER_PORT: 1986
+            ECCI_LOCAL_BROKER_ID: 321
+            ECCI_APP_ID: app
+            ECCI_APP_TYPE: component
+            ECCI_SERVICE_NAME: client5
+            ECCI_PUB_TARGETS: "{'cloud':'321'}"
+            ECCI_LOCAL_CONTAINERS: "['client1','client2','client3','client4','client5','new_client']"
+            ECCI_APP_CONTROLLER_CONTAINER: "{'cloud':'321'}"
+        runtime: nvidia
+        depends_on:
+            - client4
+        volumes:
+            - ./:/work5
+        command: python ./client5/client.py
+
+

@@ -1,0 +1,14 @@
+Dataset setting:
+*one-channel image*
+HWDC--- FMNIIST dataset --- 62 classes ---training set: 11 clients×5 classes ; testing set: 1 new clients×5 classes.
+WDI--- WM-811K dataset --- 8 classes ---training set: 3 clients×2 classes ; testing set: 1 new clients×2 classes.
+*three-channel image*
+EVC --- SurveilEdge  dataset --- 24 classes ---training set: 5 clients×4 classes ; testing set: 1 new clients×4 classes.
+TSSR--- Transformer Switches dataset --- 10 classes ---training set: 4 clients×2 classes(open and close) ; testing set: 1 new clients×2 classes(open and close).
+
+Here,  Dataset setting is isolated classes.
+For example,   the Dataset setting of WDI scenario is: Random and Scratch classes (client 1); Loc and Center classes (client 2); Edge-Loc and Edge-Ring classes (client 3);  Near-Full and Donut classes (a new client). 
+
+Tip:
+Since ecci_sdk.py is an unpublished work, there is no public code here. 
+The FLRN work can be done through the MQTT protocol.
